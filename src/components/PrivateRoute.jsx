@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
     return <div>Yuklanmoqda...</div>; 
   }
 
-  return currentUser ? children : <Navigate to="/login" />;
+  return currentUser ? children : <Navigate to="/register" />;
 };
 
 export default PrivateRoute;
