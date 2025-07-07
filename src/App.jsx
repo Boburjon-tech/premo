@@ -1,0 +1,41 @@
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import { Categories, Home,SignIn,SignUp } from './pages';
+import { AuthProvider } from './context/authContext';
+import ChoosedGenre from './pages/ChoosedGenre';
+import PrivateRoute from './components/PrivateRoute';
+
+function App() {
+
+  const routes = createBrowserRouter([
+    {
+      path: "/register",
+      element: <SignUp />
+    },
+    {
+    path: "/login", 
+    element: <SignIn />
+    },
+    {
+      path: "/",
+      element: (
+        <PrivateRoute>
+          <MainLayout />
+        </PrivateRoute>
+      ),
+      children: [
+        { index: true, element: <Home /> },
+        {path: "categories", element: <Categories />},
+        { path: "genres/:genre", element: <ChoosedGenre /> }
+      ]
+    }
+  ]);
+
+  return (
+    <AuthProvider>
+      <RouterProvider router={routes} />
+    </AuthProvider>
+  );
+}
+
+export default App;
