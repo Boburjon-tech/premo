@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Play, Plus } from "lucide-react";
 import { useCollectionsData } from "../hooks/useCollectionsData";
-import SkeletonHero from "./SkeletonHero";
+import SkeletonHero from "../components/SkeletonHero";
+import { useNavigate } from "react-router-dom"; // <-- Qo'shildi
 
 const MovieHero = () => {
   const { data, isPending, error } = useCollectionsData();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate(); // <-- Qo'shildi
 
   // Auto change every 5 seconds
   useEffect(() => {
@@ -22,6 +24,16 @@ const MovieHero = () => {
   if (!data?.films?.length) return <p className="text-white px-4">Film topilmadi.</p>;
 
   const movie = data.films[currentIndex];
+
+  // Tomosha qilish tugmasi bosilganda chaqiriladi
+  const handleWatchClick = () => {
+  if (movie?.id) {
+    navigate(`/movies/${movie.id}`); // /movie emas /movies bo'lishi kerak
+  } else {
+    alert("Film ID topilmadi!");
+  }
+};
+
 
   return (
     <section className="relative h-[60vh] sm:h-[70vh] flex items-end text-white">
@@ -47,7 +59,10 @@ const MovieHero = () => {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 sm:px-8 sm:py-3 text-sm sm:text-lg font-medium rounded flex items-center">
+            <button
+              onClick={handleWatchClick} // <-- Qo'shildi
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 sm:px-8 sm:py-3 text-sm sm:text-lg font-medium rounded flex items-center"
+            >
               <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Tomosha qilish
             </button>

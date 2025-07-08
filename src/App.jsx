@@ -1,28 +1,28 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
-import { Categories, Home, SignIn, SignUp } from './pages';
-import { AuthProvider } from './context/authContext';
-import ChoosedGenre from './pages/ChoosedGenre';
-import MoviePage from './pages/MoviePage';
-import PrivateRoute from './components/PrivateRoute';
-import WelcomePage from './pages/WelcomePage'; // yangi sahifa
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import MainLayout from "./layouts/MainLayout";
+import { Categories, Home, SignIn, SignUp } from "./pages";
+import { AuthProvider } from "./context/authContext";
+import ChoosedGenre from "./pages/ChoosedGenre";
+import MoviePage from "./pages/MoviePage";
+import PrivateRoute from "./components/PrivateRoute";
+import WelcomePage from "./pages/WelcomePage"; // yangi sahifa
 
 // 🔔 Sonner toasterni import qilamiz
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 
 function App() {
   const routes = createBrowserRouter([
     {
       path: "/register",
-      element: <SignUp />
+      element: <SignUp />,
     },
     {
-      path: "/login", 
-      element: <SignIn />
+      path: "/login",
+      element: <SignIn />,
     },
     {
-    path: "/welcome",
-    element: <WelcomePage />  // yangi sahifa
+      path: "/welcome",
+      element: <WelcomePage />, // yangi sahifa
     },
     {
       path: "/",
@@ -35,9 +35,9 @@ function App() {
         { index: true, element: <Home /> },
         { path: "categories", element: <Categories /> },
         { path: "genres/:genre", element: <ChoosedGenre /> },
-        { path: "/movies/:id", element: <MoviePage /> },
-      ]
-    }
+        { path: "movies/:id", element: <MoviePage /> }, // boshidagi "/" olib tashlandi
+      ],
+    },
   ]);
 
   return (
