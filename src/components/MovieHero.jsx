@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Play, Plus } from "lucide-react";
 import { useCollectionsData } from "../hooks/useCollectionsData";
+import SkeletonHero from "./SkeletonHero";
 
 const MovieHero = () => {
   const { data, isPending, error } = useCollectionsData();
@@ -16,7 +17,7 @@ const MovieHero = () => {
     return () => clearInterval(interval);
   }, [data]);
 
-  if (isPending) return <p className="text-white px-4">Yuklanmoqda...</p>;
+  if (isPending) return <SkeletonHero />;
   if (error) return <p className="text-red-500 px-4">Xatolik: {error}</p>;
   if (!data?.films?.length) return <p className="text-white px-4">Film topilmadi.</p>;
 
@@ -58,9 +59,13 @@ const MovieHero = () => {
 
           {/* Metadata */}
           <div className="flex flex-wrap items-center space-x-2 sm:space-x-6 mt-4 sm:mt-6 text-xs sm:text-sm text-gray-400">
-            <span>{`${movie.runtime / 60 | 0} soat ${movie.runtime % 60} minut` || "Sana yo'q"}</span>
+            <span>
+              {movie.runtime
+                ? `${Math.floor(movie.runtime / 60)} soat ${movie.runtime % 60} minut`
+                : "Davomiyligi yo'q"}
+            </span>
             <span>•</span>
-            <span>{movie.date || "Davomiyligi yo'q"}</span>
+            <span>{movie.date || "Sana yo'q"}</span>
             <span>•</span>
             <span>IMDB {movie.rating || "Noma'lum"}</span>
           </div>
