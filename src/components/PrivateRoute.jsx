@@ -7,10 +7,10 @@ const PrivateRoute = ({ children }) => {
   const { currentUser, loading } = useAuth();
 
   if (loading) {
-    return <div>Yuklanmoqda...</div>; 
+    return <div className="text-center mt-20 text-white">Yuklanmoqda...</div>;
   }
 
-  return currentUser ? children : <Navigate to="/register" />;
+  return currentUser ? children : <Navigate to="/welcome" replace />;
 };
 
 export default PrivateRoute;
