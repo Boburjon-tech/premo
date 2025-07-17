@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, LogOut } from "lucide-react";
+import { Search, Menu, LogOut, Video } from "lucide-react"; // Video iconni qo'shdim
 import { useAuth } from "../context/authContext"; // 🔑 Auth contextni chaqiramiz
 
 const Header = () => {
@@ -25,6 +25,7 @@ const Header = () => {
             Premo
           </Link>
 
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center space-x-8 text-white">
             <Link to="/" className="hover:text-red-400 transition-colors">
               Bosh sahifa
@@ -38,12 +39,30 @@ const Header = () => {
             <Link to="/genres" className="hover:text-red-400 transition-colors">
               Janrlar
             </Link>
+            {/* Meeting link */}
+            <Link 
+              to="/meeting" 
+              className="flex items-center gap-1 hover:text-red-400 transition-colors"
+              title="Online Meeting"
+            >
+              <Video className="w-5 h-5" />
+              Meeting
+            </Link>
           </nav>
 
           <div className="flex items-center space-x-4">
             <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors text-white">
               <Search className="w-5 h-5" />
             </button>
+
+            {/* Meeting button for mobile */}
+            <Link 
+              to="/meeting" 
+              className="md:hidden p-2 hover:bg-gray-800 rounded-lg transition-colors text-white flex items-center gap-1"
+              title="Online Meeting"
+            >
+              <Video className="w-5 h-5" />
+            </Link>
 
             {currentUser && (
               <button
