@@ -48,10 +48,13 @@ export const MeetingProvider = ({ children }) => {
       setRemoteStream(stream);
     });
 
+    let answerReceived = false;
+
     onSnapshot(callDoc, snapshot => {
       const data = snapshot.data();
-      if (!newPeer.destroyed && data?.answer) {
+      if (!newPeer.destroyed && data?.answer && !answerReceived) {
         newPeer.signal(data.answer);
+        answerReceived = true;  // faqat bir marta signal beramiz
       }
     });
 
@@ -82,11 +85,13 @@ export const MeetingProvider = ({ children }) => {
       setRemoteStream(stream);
     });
 
-    // Firestore dan offer signalini kutish va unga signal yuborish
+    let offerReceived = false;
+
     onSnapshot(callDoc, (snapshot) => {
       const data = snapshot.data();
-      if (!newPeer.destroyed && data?.offer) {
+      if (!newPeer.destroyed && data?.offer && !offerReceived) {
         newPeer.signal(data.offer);
+        offerReceived = true;  // faqat bir marta signal beramiz
       }
     });
 
